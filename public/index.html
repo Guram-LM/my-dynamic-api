@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Core API — დოკუმენტაცია</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#f8fafc] text-slate-700 font-sans antialiased">
+
+    <div class="max-w-5xl mx-auto px-6 py-16">
+        <header class="mb-16 text-center md:text-left flex flex-col md:flex-row justify-between items-center border-b border-slate-200 pb-8">
+            <div>
+                <h1 class="text-4xl font-black text-slate-900 tracking-tight">⚡ Dynamic Core API</h1>
+                <p class="text-slate-500 text-lg mt-2">პროფესიონალური ბექენდ არქიტექტურა SQLite მონაცემთა ბაზით</p>
+            </div>
+            <span class="mt-4 md:mt-0 px-4 py-1.5 bg-emerald-100 text-emerald-800 text-sm font-semibold rounded-full flex items-center gap-2">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> v 1.0.0 Active
+            </span>
+        </header>
+
+        <section class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm mb-12">
+            <h2 class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                <i class="fa-solid fa-network-wired text-indigo-500"></i> მუშაობის პრინციპი & ავტომატიზაცია
+            </h2>
+            <p class="text-slate-600 leading-relaxed mb-6">
+                ეს სისტემა უზრუნველყოფს სრულყოფილ დინამიკურ როუტინგს. მონაცემების შენახვა, წაკითხვა, განახლება და წაშლა ხდება ავტომატიზებულად. <strong class="text-slate-900">სისტემა ავტომატურად მართავს მეხსიერებას:</strong> ჩანაწერის წაშლის ან ფოტოს განახლებისას, ძველი ფაილები ავტომატურად იშლება სერვერის მყარი დისკიდან (<code class="bg-slate-100 px-1 py-0.5 rounded text-indigo-600">public/uploads/</code>), რაც თავიდან გვარიდებს სერვერის გადავსებას.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-100">
+                    <h3 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-amber-500"></i> ავტორიზაცია (Headers)
+                    </h3>
+                    <p class="text-sm text-slate-500">უსაფრთხოებისთვის მოდიფიკაციის მოთხოვნებს (POST, PUT, DELETE) უნდა დაემატოს ჰედერი:</p>
+                    <code class="block bg-slate-900 text-amber-400 p-3 rounded-lg font-mono text-xs mt-3 select-all">X-API-KEY: თქვენი_საიდუმლო_გასაღები</code>
+                </div>
+                <div class="p-5 bg-slate-50 rounded-xl border border-slate-100">
+                    <h3 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-list-ol text-blue-500"></i> პაგინაციის პარამეტრები
+                    </h3>
+                    <p class="text-sm text-slate-500">პაგინაციის ენდფოინთზე მოთხოვნისას, თუ ლიმიტს არ მიუთითებთ, ავტომატურად წამოვა <strong class="text-slate-900">20 ჩანაწერი</strong>.</p>
+                    <code class="block bg-slate-900 text-blue-400 p-3 rounded-lg font-mono text-xs mt-3 select-all">/api/get/page/products?limit=20&page=1</code>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-terminal text-slate-700"></i> ხელმისაწვდომი მარშრუტები (Endpoints)
+        </h2>
+
+        <div class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between bg-emerald-50/50 px-6 py-4 border-b border-slate-200">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-emerald-600 text-white font-mono font-bold px-3 py-1 rounded text-xs tracking-wider">POST</span>
+                        <span class="font-mono font-bold text-slate-800 text-sm md:text-base">/api/store/:routeKey</span>
+                    </div>
+                    <span class="text-xs text-slate-400 font-medium">🛡️ საჭიროებს Key-ს + Form-Data</span>
+                </div>
+                <div class="p-6 text-sm">
+                    <p class="text-slate-600 mb-3">ინახავს ნებისმიერ მონაცემს და ატვირთულ ფოტოს. ფოტოს ველის სახელი (Key) Form-Data-ში უნდა იყოს: <code class="text-emerald-600 font-mono font-bold">image</code>.</p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between bg-blue-50/50 px-6 py-4 border-b border-slate-200">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-blue-600 text-white font-mono font-bold px-3 py-1 rounded text-xs tracking-wider">GET</span>
+                        <span class="font-mono font-bold text-slate-800 text-sm md:text-base">/api/get/all/:routeKey</span>
+                    </div>
+                    <span class="text-xs text-emerald-600 font-medium">🌐 საჯარო (Public)</span>
+                </div>
+                <div class="p-6 text-sm">
+                    <p class="text-slate-600">აბრუნებს <strong class="text-slate-900">ყველა</strong> არსებულ მონაცემს მითითებულ კატეგორიაში ყოველგვარი ლიმიტის გარეშე.</p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between bg-purple-50/50 px-6 py-4 border-b border-slate-200">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-purple-600 text-white font-mono font-bold px-3 py-1 rounded text-xs tracking-wider">GET</span>
+                        <span class="font-mono font-bold text-slate-800 text-sm md:text-base">/api/get/page/:routeKey</span>
+                    </div>
+                    <span class="text-xs text-emerald-600 font-medium">🌐 საჯარო (Public)</span>
+                </div>
+                <div class="p-6 text-sm">
+                    <p class="text-slate-600">აბრუნებს მონაცემებს განსაზღვრული გვერდებისა და რაოდენობის მიხედვით. იღებს უსაფრთხო პარამეტრებს: <code class="text-purple-600 font-mono">?limit=20&page=1</code>.</p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between bg-amber-50/50 px-6 py-4 border-b border-slate-200">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-amber-500 text-white font-mono font-bold px-3 py-1 rounded text-xs tracking-wider">PUT</span>
+                        <span class="font-mono font-bold text-slate-800 text-sm md:text-base">/api/update/:id</span>
+                    </div>
+                    <span class="text-xs text-slate-400 font-medium">🛡️ საჭიროებს Key-ს + Form-Data</span>
+                </div>
+                <div class="p-6 text-sm">
+                    <p class="text-slate-600">ანახლებს კონკრეტულ ჩანაწერს უნიკალური ID-ის მიხედვით. თუ ატვირთავთ ახალ ფოტოს (<code class="text-amber-600 font-mono">image</code> ველით), სერვერი ავტომატურად წაშლის ძველ ფაილს დისკიდან.</p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                <div class="flex items-center justify-between bg-rose-50/50 px-6 py-4 border-b border-slate-200">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-rose-600 text-white font-mono font-bold px-3 py-1 rounded text-xs tracking-wider">DELETE</span>
+                        <span class="font-mono font-bold text-slate-800 text-sm md:text-base">/api/delete/:id</span>
+                    </div>
+                    <span class="text-xs text-slate-400 font-medium">🛡️ საჭიროებს Key-ს</span>
+                </div>
+                <div class="p-6 text-sm">
+                    <p class="text-slate-600">სამუდამოდ შლის ჩანაწერს მონაცემთა ბაზიდან და მასთან დაკავშირებულ ფოტოს ფაილს სერვერის მეხსიერებიდან.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-20 border-t border-slate-200 pt-6 text-center text-xs text-slate-400">
+            &copy; 2026 მინიმალისტური დინამიკური API სისტემა. ყველა უფლება დაცულია.
+        </footer>
+    </div>
+
+</body>
+</html>
